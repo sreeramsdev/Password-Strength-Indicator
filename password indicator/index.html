@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Password Indicator</title>
+</head>
+<body>
+    <div class="container">
+       <br><span>Password Strength Indicator</span>
+
+       <input type="password" id="password" placeholder=" Enter Your Password" onkeyup="colorChange()"/>
+      <div class="indicator">
+        <div id="color-1"></div>
+       <div id="color-2"></div>
+       <div id="color-3"></div>
+      </div> 
+      <p id="para"></p>
+    </div>
+
+    <script>
+        var charactersUpper=[A-Z]
+        var numbers=[0-9]
+        var charactersLower=[a-z]
+        var specialChar=['@','#','$','%','&']
+        var password=document.getElementById("password")
+        var color1=document.getElementById("color-1")
+        var color2=document.getElementById("color-2")
+        var color3=document.getElementById("color-3")
+        var para=document.getElementById("para")
+
+        function colorChange(){
+            if(password.textContent.length<4){
+                document.getElementById("color-1").style.backgroundColor='red'
+                para.textContent="Your Password is weak"
+                
+            }
+            else if(password.textContent.length>=4||password.textContent===charactersLower||password.textContent===charactersUpper||password.textContent===numbers){
+                document.getElementById("color-1").style.backgroundColor='red'
+                document.getElementById("color-2").style.backgroundColor='orange'
+                para.textContent="Your Password is Moderate"
+            }  
+            else if(password.textContent.length>=4||password.textContent===charactersLower||password.textContent===charactersUpper||password.textContent===numbers||password.textContent===specialChar){
+                document.getElementById("color-1").style.backgroundColor='red'
+                document.getElementById("color-2").style.backgroundColor='orange'
+                document.getElementById("color-3").style.backgroundColor='green'
+                para.textContent="Your Password is Strong"
+            } 
+            
+            
+            // if(password.textContent.length==0){
+            //         document.getElementById("color-1").style.backgroundColor='white'
+            //         document.getElementById("color-2").style.backgroundColor='white'
+            //         document.getElementById("color-3").style.backgroundColor='white'
+            //     }
+        }
+    </script>
+</body>
+</html>
