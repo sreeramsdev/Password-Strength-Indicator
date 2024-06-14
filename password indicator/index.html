@@ -10,7 +10,8 @@
     <div class="container">
        <br><span>Password Strength Indicator</span>
 
-       <input type="password" id="password" placeholder=" Enter Your Password" onkeyup="colorChange()"/>
+       <input type="password" id="password" placeholder=" Enter Your Password" oninput="checkPassStrength()"/>
+       <button id="show-btn" onclick="Show()">Show</button>
       <div class="indicator">
         <div id="color-1"></div>
        <div id="color-2"></div>
@@ -20,41 +21,161 @@
     </div>
 
     <script>
-        var charactersUpper=[A-Z]
-        var numbers=[0-9]
-        var charactersLower=[a-z]
-        var specialChar=['@','#','$','%','&']
-        var password=document.getElementById("password")
-        var color1=document.getElementById("color-1")
-        var color2=document.getElementById("color-2")
-        var color3=document.getElementById("color-3")
-        var para=document.getElementById("para")
 
-        function colorChange(){
-            if(password.textContent.length<4){
-                document.getElementById("color-1").style.backgroundColor='red'
-                para.textContent="Your Password is weak"
-                
+        function checkPassStrength(){
+        var password=document.getElementById("password")
+        var passValue=password.value
+        var indicator1=document.getElementById("color-1")
+        var indicator2=document.getElementById("color-2")
+        var indicator3=document.getElementById("color-3")
+        var result=document.getElementById("para")
+
+        indicator1.style.backgroundColor=''
+        indicator2.style.backgroundColor=''
+        indicator3.style.backgroundColor=''
+
+        if(passValue.length < 4){
+                if(passValue.length <= 0){
+                    result.innerHTML = '';
+                    return;
+                }
+                result.style.color = 'red';
+                result.innerHTML = 'Your Password is too weak...';
+                indicator1.style.backgroundColor = 'red';
+                return;
+            } else {
+                indicator1.style.backgroundColor = '';
+                result.innerHTML = '';
             }
-            else if(password.textContent.length>=4||password.textContent===charactersLower||password.textContent===charactersUpper||password.textContent===numbers){
-                document.getElementById("color-1").style.backgroundColor='red'
-                document.getElementById("color-2").style.backgroundColor='orange'
-                para.textContent="Your Password is Moderate"
-            }  
-            else if(password.textContent.length>=4||password.textContent===charactersLower||password.textContent===charactersUpper||password.textContent===numbers||password.textContent===specialChar){
-                document.getElementById("color-1").style.backgroundColor='red'
-                document.getElementById("color-2").style.backgroundColor='orange'
-                document.getElementById("color-3").style.backgroundColor='green'
-                para.textContent="Your Password is Strong"
-            } 
+
+            var hasUpperCase = /[A-Z]/;
+            var hasLowerCase = /[a-z]/;
+            var hasNumbers = /[0-9]/;
+            var hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+            if(hasUpperCase.test(passValue) && hasLowerCase.test(passValue) && hasNumbers.test(passValue) && hasSpecialChar.test(passValue)){
+                result.innerHTML = 'Your Password Is Strong...';
+                result.style.color = 'green';
+                indicator3.style.backgroundColor = 'green';
+                indicator1.style.backgroundColor = 'red';
+                indicator2.style.backgroundColor = 'orange';
+                return;
+            }
             
-            
-            // if(password.textContent.length==0){
-            //         document.getElementById("color-1").style.backgroundColor='white'
-            //         document.getElementById("color-2").style.backgroundColor='white'
-            //         document.getElementById("color-3").style.backgroundColor='white'
-            //     }
+            else if (hasUpperCase.test(passValue) && hasLowerCase.test(passValue) && (hasNumbers.test(passValue) || hasSpecialChar.test(passValue))){
+                result.innerHTML = 'Your Password Is Moderate...';
+                result.style.color = 'orange';
+                indicator2.style.backgroundColor = 'orange';
+                indicator1.style.backgroundColor = 'red';
+                return;
+            } else {
+                result.innerHTML = 'Your Password Is Weak...';
+                result.style.color = 'red';
+                indicator1.style.backgroundColor = 'red';
+            }
+    }
+       
+        function Show(){
+            var pass=document.getElementById("password")
+            var btn=document.getElementById("show-btn")
+            if(pass.type=="password"){
+                 pass.type='text'
+                 pass.textContent='Hide'
+            }
+            else{
+                pass.type='password'
+                pass.textContent='show'
+            }
         }
+        
     </script>
 </body>
 </html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Password Indicator</title>
+</head>
+<body>
+    <div class="container">
+       <br><span>Password Strength Indicator</span>
+
+       <input type="password" id="password" placeholder=" Enter Your Password" oninput="checkPassStrength()"/>
+       <button id="show-btn" onclick="Show()">Show</button>
+      <div class="indicator">
+        <div id="color-1"></div>
+       <div id="color-2"></div>
+       <div id="color-3"></div>
+      </div> 
+      <p id="para"></p>
+    </div>
+
+    <script>
+        function checkPassStrength(){
+            var password = document.getElementById("password");
+            var passValue = password.value;
+            var indicator1 = document.getElementById("color-1");
+            var indicator2 = document.getElementById("color-2");
+            var indicator3 = document.getElementById("color-3");
+            var result = document.getElementById("para");
+
+            indicator1.style.backgroundColor = '';
+            indicator2.style.backgroundColor = '';
+            indicator3.style.backgroundColor = '';
+
+            if(passValue.length < 4){
+                if(passValue.length <= 0){
+                    result.innerHTML = '';
+                    return;
+                }
+                result.style.color = 'red';
+                result.innerHTML = 'Your Password is too weak...';
+                indicator1.style.backgroundColor = 'red';
+                return;
+            } else {
+                indicator1.style.backgroundColor = '';
+                result.innerHTML = '';
+            }
+
+            var hasUpperCase = /[A-Z]/;
+            var hasLowerCase = /[a-z]/;
+            var hasNumbers = /[0-9]/;
+            var hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+            if(hasUpperCase.test(passValue) && hasLowerCase.test(passValue) && hasNumbers.test(passValue) && hasSpecialChar.test(passValue)){
+                result.innerHTML = 'Your Password Is Strong...';
+                result.style.color = 'green';
+                indicator3.style.backgroundColor = 'green';
+                indicator1.style.backgroundColor = 'red';
+                indicator2.style.backgroundColor = 'orange';
+                return;
+            } else if (hasUpperCase.test(passValue) && hasLowerCase.test(passValue) && (hasNumbers.test(passValue) || hasSpecialChar.test(passValue))){
+                result.innerHTML = 'Your Password Is Moderate...';
+                result.style.color = 'orange';
+                indicator2.style.backgroundColor = 'orange';
+                indicator1.style.backgroundColor = 'red';
+                return;
+            } else {
+                result.innerHTML = 'Your Password Is Weak...';
+                result.style.color = 'red';
+                indicator1.style.backgroundColor = 'red';
+            }
+        }
+
+        function Show(){
+            var pass = document.getElementById("password");
+            var btn = document.getElementById("show-btn");
+            if(pass.type === "password"){
+                pass.type = 'text';
+                btn.textContent = 'Hide';
+            } else {
+                pass.type = 'password';
+                btn.textContent = 'Show';
+            }
+        }
+    </script>
+</body>
+</html> -->
