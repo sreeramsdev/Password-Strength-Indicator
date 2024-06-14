@@ -26,12 +26,21 @@ body{
     width: 300px;
     margin-top: 20px;
     margin-left: 43px;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 3px solid;
 }
 .indicator{
     display: flex;
     gap: 5px;
     margin-top: 30px;
     margin-left: 40px;
+}
+
+#para{
+    margin-left: 90px;
+    margin-top: 10px;
 }
 #color-1{
     height: 20px;
@@ -53,4 +62,19 @@ body{
     /* background-color: rgb(183, 255, 0); */
     border-radius: 5px;
     border: 2px solid;
+}
+#show-btn{
+    height: 20px;
+    width: 40px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: transparent;
+    position: relative;
+    left: -50px;
+    
+}
+#show-btn:hover{
+    background-color: rgb(255, 189, 222);
+    color: white;
+    font-weight: bold;
 }
